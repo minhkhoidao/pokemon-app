@@ -1,0 +1,91 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "airbnb"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+                "ts": "never",
+                "tsx": "never"
+            }
+        ],
+        "react/jsx-filename-extension": [
+            "warn",
+            {
+                "extensions": [
+                    ".tsx",
+                    ".ts"
+                ]
+            }
+        ],
+        "import/no-extraneous-dependencies": [
+            "error",
+            {
+                "devDependencies": true
+            }
+        ],
+        "linebreak-style": 0,
+        "lobal-require": 0,
+        "eslint linebreak-style": [
+            0,
+            "error",
+            "windows"
+        ],
+        "comma-dangle": "off",
+        "@typescript-eslint/comma-dangle": "off",
+        "react/react-in-jsx-scope": "off",
+        "no-console": 0,
+        "no-unused-vars": 0,
+        "react/function-component-definition": [
+            2,
+            {
+                "namedComponents": "arrow-function",
+                "unnamedComponents": "arrow-function"
+            }
+        ],
+        "arrow-body-style": "off",
+        "react/jsx-props-no-spreading": "off",
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "treatUndefinedAsUnspecified": true
+    },
+    "overrides": [
+        {
+            // enable the rule specifically for TypeScript files
+            "files": [
+                "*.ts",
+                "*.mts",
+                "*.cts",
+                "*.tsx"
+            ],
+            "rules": {
+                "@typescript-eslint/explicit-function-return-type": [
+                    "error"
+                ]
+            }
+        }
+    ],
+    "settings": {
+        "import/resolver": {
+            "typescript": {}
+        }
+    }
+}

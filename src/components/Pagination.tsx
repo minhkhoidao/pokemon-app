@@ -1,37 +1,36 @@
+import usePagination from '@/hooks/usePagination';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 interface PaginProps {
   offset: number;
-  totalPage?: number;
+  totalPage: number;
 }
 const Pagination = ({ offset, totalPage }: PaginProps) => {
-  const newArr = [...Array(5)].map((_, i) => i + 1);
-  const navigate = useNavigate();
-  const isActive = (index: number) => {
-    if (index === offset) {
-      return 'danger';
-    }
-  };
+  const { previous, nextPage, jump, isActive, firstArray, lastArray } = usePagination({
+    totalPage,
+    offset
+  });
 
-  const jump = (index: number) => {
-    navigate(`?page=${index}`);
-  };
-  const nextPage = () => {
-    const newPage = Math.min(offset + 1, 5);
-    navigate(`?page=${newPage}`);
-  };
-  const previous = () => {
-    const newPage = Math.max(offset - 1, 1);
-    navigate(`?page=${newPage}`);
-  };
+  console.log(totalPage)
   return (
     <div className="d-flex justify-content-center align-items-center mt-4">
       <Button onClick={previous} variant="primary" style={{ marginRight: '5px' }}>
         &laquo;
       </Button>
-      {newArr.map((item) => {
+      {firstArray.map((item) => {
+        return (
+          <Button
+            variant={isActive(item)}
+            style={{ marginRight: '2px' }}
+            key={item}
+            onClick={() => jump(item)}>
+            {item}
+          </Button>
+        );
+      })}
+      {lastArray.map((item) => {
         return (
           <Button
             variant={isActive(item)}

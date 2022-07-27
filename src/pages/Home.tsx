@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import Pagination from '@/components/Pagination';
+import Pokemon from '@/components/Pokemon';
+import useQuery from '@/hooks/useQuery';
+import React, { useMemo, useState } from 'react';
 import { Col, Row, Spinner } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
-import Pagination from '../components/Pagination';
-import Pokemon from '../components/Pokemon';
-import useQuery from '../hooks/useQuery';
 
 const Home: React.FC = () => {
   const [limit] = useState(30);
