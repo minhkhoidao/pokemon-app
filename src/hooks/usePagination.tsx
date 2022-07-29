@@ -6,46 +6,55 @@ interface PaginationProps {
   offset: number;
 }
 interface ArrProps {
-  firstArray: number[];
-  lastArray: number[];
+  firstArr: number[];
+  lastArr: number[];
 }
-const usePagination = ({ totalPage, offset }: PaginationProps) => {
+
+const usePagination = (props: PaginationProps) => {
+  const { totalPage, offset } = props;
   const navigate = useNavigate();
-  const jump = (index: number) => {
-    navigate(`?page=${index}`);
-  };
-  const nextPage = () => {
-    const newPage = Math.min(offset + 1, 5);
-    navigate(`?page=${newPage}`);
-  };
-  const previous = () => {
-    const newPage = Math.max(offset - 1, 1);
-    navigate(`?page=${newPage}`);
-  };
-  const isActive = (index: number) => {
-    if (index === offset) return 'danger';
-  };
-  const { firstArray, lastArray }: ArrProps = useMemo(() => {
-    const newArr = [...Array(totalPage).map((_, i) => i + 1)];
-    if (totalPage <= 4) {
+
+  const { firstArr, lastArr }: ArrProps = useMemo(() => {
+    const newArr = [...Array(totalPage)].map((_, i) => i + 1);
+
+    if (totalPage < 4)
       return {
-        firstArray: newArr,
-        lastArray: []
+        firstArr: newArr,
+        lastArr: []
       };
-    }
-    if (totalPage - offset >= 3) {
+
+    if (totalPage - offset >= 4) {
       return {
-        firstArray: newArr.slice(offset - 1, offset + 2),
-        lastArray: newArr.slice(totalPage - 1)
+        firstArr: newArr.slice(offset - 1, offset + 2),
+        lastArr: newArr.slice(totalPage - 1)
       };
     } else {
       return {
-        firstArray: newArr.slice(totalPage - 4, totalPage),
-        lastArray: []
+        firstArr: newArr.slice(totalPage - 4, totalPage),
+        lastArr: []
       };
     }
   }, [totalPage, offset]);
-  return { firstArray, lastArray, previous, nextPage, jump, isActive };
+
+  const isActive = (index: number) => {
+    if (index === offset) return 'danger';
+  };
+
+  const prev = () => {
+    const newPage = Math.max(offset - 1, 1);
+    navigate(`?page=${newPage} `);
+  };
+
+  const next = () => {
+    const newPage = Math.min(offset + 1, totalPage);
+    navigate(`?page=${newPage} `);
+  };
+
+  const jump = (index: number) => {
+    navigate(`?page=${index} `);
+  };
+
+  return { firstArr, lastArr, navigate, isActive, prev, next, jump };
 };
 
 export default usePagination;

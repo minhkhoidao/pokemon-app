@@ -8,18 +8,16 @@ interface PaginProps {
   totalPage: number;
 }
 const Pagination = ({ offset, totalPage }: PaginProps) => {
-  const { previous, nextPage, jump, isActive, firstArray, lastArray } = usePagination({
+  const { firstArr, lastArr, navigate, isActive, prev, next, jump } = usePagination({
     totalPage,
     offset
   });
-
-  console.log(totalPage)
   return (
     <div className="d-flex justify-content-center align-items-center mt-4">
-      <Button onClick={previous} variant="primary" style={{ marginRight: '5px' }}>
+      <Button onClick={prev} variant="primary" style={{ marginRight: '5px' }}>
         &laquo;
       </Button>
-      {firstArray.map((item) => {
+      {firstArr.map((item: number) => {
         return (
           <Button
             variant={isActive(item)}
@@ -30,7 +28,8 @@ const Pagination = ({ offset, totalPage }: PaginProps) => {
           </Button>
         );
       })}
-      {lastArray.map((item) => {
+      {lastArr.length > 0 && <Button>...</Button>}
+      {lastArr.map((item: number) => {
         return (
           <Button
             variant={isActive(item)}
@@ -41,7 +40,7 @@ const Pagination = ({ offset, totalPage }: PaginProps) => {
           </Button>
         );
       })}
-      <Button onClick={nextPage} variant="primary" style={{ marginLeft: '5px' }}>
+      <Button onClick={next} variant="primary" style={{ marginLeft: '5px' }}>
         &raquo;
       </Button>
     </div>

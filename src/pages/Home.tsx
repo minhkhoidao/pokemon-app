@@ -2,7 +2,7 @@ import Pagination from '@/components/Pagination';
 import Pokemon from '@/components/Pokemon';
 import useQuery from '@/hooks/useQuery';
 import React, { useMemo, useState } from 'react';
-import { Col, Row, Spinner } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 
 const Home: React.FC = () => {
@@ -19,13 +19,10 @@ const Home: React.FC = () => {
   const totalPage = useMemo(() => {
     if (!count) return;
     return Math.ceil(count / limit);
-  }, [count, limit]);
-
+  }, [count]);
   return (
     <>
       <h1>List Pokemon</h1>
-      {loading && <Spinner animation="border" variant="primary" />}
-
       <Row>
         {results?.map((item: any) => {
           return (
